@@ -2,24 +2,12 @@ package uf3_ac03_ej3;
 
 import java.io.IOException;
 import java.util.Scanner;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Text;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
+import org.w3c.dom.*;
+import org.xml.sax.*;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 /**
@@ -43,36 +31,47 @@ public class XML {
         DOMImplementation implementation = builder.getDOMImplementation();
         Document document = implementation.createDocument(null, "Mis_Bookmarks", null); //Nombre raiz
         document.setXmlVersion("1.0");
+        
+        boolean continuar = true;
 
-        //Creamos un elemento
-        Element raiz = document.createElement("bookmark");
-        document.getDocumentElement().appendChild(raiz);
+        do {
+            //Creamos un elemento
+            Element raiz = document.createElement("bookmark");
+            document.getDocumentElement().appendChild(raiz);
 
-        //Elemento nombre        
-        System.out.println("Inserte el nombre del Bookmark:");
-        String nombre = teclado.nextLine();
-        CrearElemento(elemento1, nombre, raiz, document);
+            //Elemento nombre        
+            System.out.println("Inserte el nombre del Bookmark:");
+            String nombre = teclado.nextLine();
+            CrearElemento(elemento1, nombre, raiz, document);
 
-        //elemento URL
-        System.out.println("Inserte la URL:");
-        String url = teclado.nextLine();
-        CrearElemento(elemento2, url, raiz, document);
+            //elemento URL
+            System.out.println("Inserte la URL:");
+            String url = teclado.nextLine();
+            CrearElemento(elemento2, url, raiz, document);
 
-        //elemento descripcion
-        System.out.println("Inserte la descripcion:");
-        String descripcion = teclado.nextLine();
-        CrearElemento(elemento3, descripcion, raiz, document);
+            //elemento descripcion
+            System.out.println("Inserte la descripcion:");
+            String descripcion = teclado.nextLine();
+            CrearElemento(elemento3, descripcion, raiz, document);
 
-        //elemento URL
-        System.out.println("Inserte las palabras clave:");
-        String claves = teclado.nextLine();
-        CrearElemento(elemento4, claves, raiz, document);
+            //elemento URL
+            System.out.println("Inserte las palabras clave:");
+            String claves = teclado.nextLine();
+            CrearElemento(elemento4, claves, raiz, document);
 
-        //Creamos la fuente del documento xml
-        Source source = new DOMSource(document);
-        Result result = new StreamResult(new java.io.File("bookmarks.xml"));
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        transformer.transform(source, result);
+            //Creamos la fuente del documento xml
+            Source source = new DOMSource(document);
+            Result result = new StreamResult(new java.io.File("bookmarks.xml"));
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.transform(source, result);
+            
+            System.out.println("¿Desea agregar otro bookmark?   SI/NO");
+            String respuesta = teclado.nextLine();
+            
+            if (respuesta.equalsIgnoreCase("NO")) {
+                continuar=false;
+            }
+        } while (continuar);
 
     }
 
