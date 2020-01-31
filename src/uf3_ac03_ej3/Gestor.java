@@ -14,6 +14,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public class Gestor extends DefaultHandler {
 
     Bookmarks bookmark = new Bookmarks(); //objeto donde se almacenan los elementos
+    
     //banderas que se activan en el metodo de startElement
     boolean tagNombre = false;
     boolean tagUrl = false;

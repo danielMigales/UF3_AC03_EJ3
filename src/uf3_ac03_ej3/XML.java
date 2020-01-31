@@ -89,7 +89,7 @@ public class XML {
         XMLReader procesadorXML = XMLReaderFactory.createXMLReader();
         Gestor gestor = new Gestor();
         procesadorXML.setContentHandler(gestor);
-        InputSource fileXML = new InputSource("Bookmarks.xml");
+        InputSource fileXML = new InputSource("bookmarks.xml");
         procesadorXML.parse(fileXML);
     }
 
